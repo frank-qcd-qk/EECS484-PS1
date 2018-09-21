@@ -22,7 +22,7 @@ nnodes_layer2=1; %single output
 % *Layer number is used to tune how many layer the network have
 nnodes_layer1=4; %TODO: try this many interneurons; experiment with this number
 % *eps is for the epsolon that controls step size
-eps= 0.01; %TODO: tune this value; may also want to vary this during iterations
+eps= 1; %TODO: tune this value; may also want to vary this during iterations
 
 
 %weights from pattern inputs to layer 1 (interneurons)

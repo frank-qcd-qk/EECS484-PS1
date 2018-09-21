@@ -23,18 +23,20 @@ for p=1:P %make the P loop the outer loop, since need to re-use results of
     [outputj,outputk]=eval_2layer_fdfwdnet(Wji,Wkj,b1_vec,b2_vec,stim_vec);
     err_vec = outputk - targets(p,:);
 
-    phi_prime_L_vec = (outputk)*(1-outputk); %TODO: FIX ME!!
-    delta_L = (phi_prime_L_vec).*(err_vec); %TODO: FIX ME!!
+    phi_prime_L_vec = (outputk).*(1-outputk); %* FIXed!!
+    delta_L = (phi_prime_L_vec).*(err_vec); %* FIXed!!
     delta_L_cum=delta_L_cum + delta_L;
 
-    dWL = (delta_L)*(outputj).'; %TODO: FIX ME!!
+    dWL = (delta_L)*(outputj).'; %* FIXed!!
     dWL_cum = dWL_cum+dWL;
 
-    phi_prime_Lminus1_vec = zeros(J,1);  %TODO: FIX ME!!
-    delta_Lminus1 = zeros(J,1); %TODO: FIX ME!!
+    phi_prime_Lminus1_vec = (outputj).*(1-outputj);  %* FIXed!!
+    delta_Lminus1 = (((Wkj).')*delta_L) .* phi_prime_Lminus1_vec; %TODO: FIX ME!!
+    % delta_L .* Wkj .* phi_prime_Lminus1_vec .* 1
+    % Wkj.' .* delta_L .* phi_prime_L_vec
     delta_Lminus1_cum = delta_Lminus1_cum + delta_Lminus1;
 
-    dW_Lminus1 =  Wji*0; %TODO: FIX ME!!
+    dW_Lminus1 =  (delta_Lminus1).*(outputj); %TODO: FIX ME!!
     dW_Lminus1_cum = dW_Lminus1_cum+dW_Lminus1;
     
 end
