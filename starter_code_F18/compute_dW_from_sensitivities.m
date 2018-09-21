@@ -27,16 +27,15 @@ for p=1:P %make the P loop the outer loop, since need to re-use results of
     delta_L = (phi_prime_L_vec).*(err_vec); %* FIXed!!
     delta_L_cum=delta_L_cum + delta_L;
 
-    dWL = (delta_L)*(outputj).'; %* FIXed!!
+    dWL = (delta_L).*(outputj).'; %* FIXed!!
     dWL_cum = dWL_cum+dWL;
 
     phi_prime_Lminus1_vec = (outputj).*(1-outputj);  %* FIXed!!
-    delta_Lminus1 = (((Wkj).')*delta_L) .* phi_prime_Lminus1_vec; %TODO: FIX ME!!
-    % delta_L .* Wkj .* phi_prime_Lminus1_vec .* 1
-    % Wkj.' .* delta_L .* phi_prime_L_vec
+    delta_Lminus1 = (((Wkj).')*delta_L) .* phi_prime_Lminus1_vec; %* FIXed!!
+
     delta_Lminus1_cum = delta_Lminus1_cum + delta_Lminus1;
 
-    dW_Lminus1 =  (delta_Lminus1).*(outputj); %TODO: FIX ME!!
+    dW_Lminus1 =  (delta_Lminus1).*(stim_vec).'; %* FIXed!!
     dW_Lminus1_cum = dW_Lminus1_cum+dW_Lminus1;
     
 end
