@@ -18,17 +18,17 @@ targets=[t1;t2;t3;t4];  % should have these responses; rows correspond to input 
 ndim_inputs=2; %2D patterns 
 nnodes_layer2=1; %single output
 
-%EXPERIMENT WITH NEXT 2 PARAMS:
-nnodes_layer1=4; %try this many interneurons; experiment with this number
-
-eps= 0.01; % tune this value; may also want to vary this during iterations
+%TODO: EXPERIMENT WITH NEXT 2 PARAMS:
+% *Layer number is used to tune how many layer the network have
+nnodes_layer1=4; %TODO: try this many interneurons; experiment with this number
+% *eps is for the epsolon that controls step size
+eps= 0.01; %TODO: tune this value; may also want to vary this during iterations
 
 
 %weights from pattern inputs to layer 1 (interneurons)
 %initialize weights to random numbers, plus and minus--may want to change
 %range; first row has dummy inputs, since first interneuron is unchanging bias node
 W1p = (2*rand(nnodes_layer1,ndim_inputs)-1); %matrix is nnodes_layer1 x ndim_inputs
-
 %weights from interneurons to output layer 
 W21 = (2*rand(nnodes_layer2,nnodes_layer1)-1); 
 %randomize bias values for interneurons:
@@ -51,20 +51,20 @@ while (1>0) % infinite loop--ctl-C to stop; edit this to run finite number of ti
 
     [dWL_cum,dW_Lminus1_cum,delta_L_cum,delta_Lminus1_cum] = compute_dW_from_sensitivities(W1p,W21,b1_vec,b2_vec,training_patterns,targets);    
 
-    %DEBUG: uncomment the following and prove that your compute_W_derivs
+    %TODO: DEBUG: uncomment the following and prove that your compute_W_derivs
     %yields the same answer as numerical estimates for dE/dW
     %comment out to run faster, once debugged
     %display derivative computation
-    dWL_cum
+    dWL_cum %! Need to comment out when completed
     %delta_L_cum
     %do a SLOW alternative numerical approximation of the same
     %sensitivities:
-    est_dWkj= numer_est_Wkj(W1p,W21,b1_vec,b2_vec,training_patterns,targets) %and numerical estimate
+    est_dWkj= numer_est_Wkj(W1p,W21,b1_vec,b2_vec,training_patterns,targets) %and numerical estimate %! Need to comment out when completed
 
     %display sensitivities dE/dwji
-    dW_Lminus1_cum
+    dW_Lminus1_cum %! Need to comment out when completed
     %SLOW numerical estimate of L-1 layer sensitivities
-    est_dWji=numer_est_Wji(W1p,W21,b1_vec,b2_vec,training_patterns,targets) %and numerical estimate
+    est_dWji=numer_est_Wji(W1p,W21,b1_vec,b2_vec,training_patterns,targets) %and numerical estimate %! Need to comment out when completed
 
     %use gradient descent to update all weights:
     %W1p=W1p-eps*dWji;
