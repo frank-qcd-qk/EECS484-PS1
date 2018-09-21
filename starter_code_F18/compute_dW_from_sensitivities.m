@@ -23,11 +23,11 @@ for p=1:P %make the P loop the outer loop, since need to re-use results of
     [outputj,outputk]=eval_2layer_fdfwdnet(Wji,Wkj,b1_vec,b2_vec,stim_vec);
     err_vec = outputk - targets(p,:);
 
-    phi_prime_L_vec = zeros(K,1); %TODO: FIX ME!!
-    delta_L = zeros(K,1); %TODO: FIX ME!!
+    phi_prime_L_vec = (outputk)*(1-outputk); %TODO: FIX ME!!
+    delta_L = (phi_prime_L_vec).*(err_vec); %TODO: FIX ME!!
     delta_L_cum=delta_L_cum + delta_L;
 
-    dWL = Wkj*0; %TODO: FIX ME!!
+    dWL = (delta_L)*(outputj).'; %TODO: FIX ME!!
     dWL_cum = dWL_cum+dWL;
 
     phi_prime_Lminus1_vec = zeros(J,1);  %TODO: FIX ME!!
@@ -37,7 +37,9 @@ for p=1:P %make the P loop the outer loop, since need to re-use results of
     dW_Lminus1 =  Wji*0; %TODO: FIX ME!!
     dW_Lminus1_cum = dW_Lminus1_cum+dW_Lminus1;
     
-end %done evaluating influence of all P stimulus patterns
+end
+
+%done evaluating influence of all P stimulus patterns
 %delta_L_cum
 %delta_Lminus1_cum
 %dWL_cum
