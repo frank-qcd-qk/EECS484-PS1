@@ -79,7 +79,8 @@ while (1>0) % infinite loop--ctl-C to stop; edit this to run finite number of ti
     %optional debug: plot out incremental progress every plot_iter iterations
     plot_iter=100;
     if (iteration-iter1k>plot_iter)
-        ffwd_surfplot(W1p,W21,b1_vec,b2_vec); 
+        ffwd_surfplot(W1p,W21,b1_vec,b2_vec);
+        set(get(gca, 'Title'), 'String', 'Test Title'); 
         iter1k=iteration;
         iteration
         pause(1)
